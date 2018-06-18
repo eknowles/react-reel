@@ -83,7 +83,7 @@ class Reels extends PureComponent {
     /** @type {number} DELAY - delay between each sibling animation */
     delay: PropTypes.number,
     /** @type {Object} theme - react-themeable */
-    theme: PropTypes.object,
+    theme: PropTypes.any,
   };
 
   static defaultProps = {

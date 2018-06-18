@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import themeable from 'react-themeable';
 
 import { defaultTheme } from './theme';
 
@@ -18,7 +19,7 @@ class Numbers extends PureComponent {
     /** @type {Number} [1000] duration - animation duration in milliseconds */
     duration: PropTypes.number,
     /** @type {Object} theme - react-themeable */
-    theme: PropTypes.object,
+    theme: PropTypes.func,
   };
 
   static defaultProps = {
@@ -55,8 +56,8 @@ class Numbers extends PureComponent {
       transform: `translate(0, ${display}em)`,
     };
     return (
-      <div className={theme.group} style={style}>
-        {values.map((v) => <div key={v} className={theme.number}>{v}</div>)}
+      <div {...theme(2, 'group')} style={style}>
+        {values.map((v) => <div key={v} {...theme(v, 'number')}>{v}</div>)}
       </div>
     );
   }
@@ -145,11 +146,12 @@ class Reels extends PureComponent {
   /**
    * This method handles the render cycle of each reel
    * @param parts
+   * @param theme
    * @return {*}
    */
-  renderReels = (parts) => {
+  renderReels = (parts, theme) => {
     let ind = 0;
-    const { duration, theme } = this.props;
+    const { duration } = this.props;
 
     const values = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
 
@@ -207,13 +209,13 @@ class Reels extends PureComponent {
   };
 
   render() {
-    const { text, theme } = this.props;
-    const parts = this.getParts(text);
+    const theme = themeable(this.props.theme);
+    const parts = this.getParts(this.props.text);
 
     return (
-      <div aria-label={text}>
-        <div role="presentation" className={theme.reel}>
-          {this.renderReels(parts)}
+      <div aria-label={this.props.text}>
+        <div role="presentation" {...theme(1, 'reel')}>
+          {this.renderReels(parts, theme)}
         </div>
       </div>
     );

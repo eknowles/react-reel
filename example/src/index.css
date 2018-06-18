@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400');
+
+/* example */
+html, body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  font-weight: 100;
+}
+
+.example {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 60px);
+  padding: 30px;
+}
+
+
+/** THEME */
+.react-reel__group {
+  transition-delay: 0ms;
+  transition-timing-function: ease-in-out;
+  transform: translate(0, 0);
+}
+
+.react-reel__group .react-reel__number {
+  height: 1em;
+}
+
+.react-reel__reel {
+  height: 1em;
+  display: flex;
+  align-items: flex-end;
+  overflow-y: hidden;
+
+  /** custom */
+  font-size: 45px;
+  font-weight: 300;
+  color: #E2AB5B;
+  border-bottom: 1px solid #0492BD;
+  line-height: 0.95em; /* adjusted for Lato font */
+}

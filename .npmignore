@@ -1,0 +1,10 @@
+# tests
+*.test.js
+jest.config.js
+
+# ide
+.idea
+
+# configs
+.eslintrc
+.travis.yml

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import themeable from 'react-themeable';
 
 import { defaultTheme } from './theme';
 
@@ -18,7 +19,7 @@ class Numbers extends PureComponent {
     /** @type {Number} [1000] duration - animation duration in milliseconds */
     duration: PropTypes.number,
     /** @type {Object} theme - react-themeable */
-    theme: PropTypes.object,
+    theme: PropTypes.func,
   };
 
   static defaultProps = {
@@ -55,8 +56,8 @@ class Numbers extends PureComponent {
       transform: `translate(0, ${display}em)`,
     };
     return (
-      <div className={theme.group} style={style}>
-        {values.map((v) => <div key={v} className={theme.number}>{v}</div>)}
+      <div {...theme(2, 'group')} style={style}>
+        {values.map((v) => <div key={v} {...theme(v, 'number')}>{v}</div>)}
       </div>
     );
   }
@@ -66,34 +67,28 @@ class Numbers extends PureComponent {
  * @class Reels
  */
 class Reels extends PureComponent {
+  static TYPE_STRING = 'string';
+  static TYPE_INT = 'integer';
+  static TYPE_FRACTION = 'fraction';
   static getNumbers(number) {
     return number.toString().split('').map((n) => parseInt(n, 10));
   }
-  static stripNonNumbers = (str) => str.match(/\d/g).join('');
+  static stripNonNumbers = (str) => str && str.match(/\d/g).join('');
 
   static propTypes = {
-    /** @type {Number} number - number to move to */
-    number: PropTypes.number,
+    /** @type {Number} text */
+    text: PropTypes.string.isRequired,
     /** @type {Number} [1000] duration - animation duration in milliseconds */
     duration: PropTypes.number,
     /** @type {number} DELAY - delay between each sibling animation */
     delay: PropTypes.number,
-    /** @type {String} [en-GB] locale - BCP 47 lang tag */
-    locale: PropTypes.string,
-    /** @type {String} options - NumberFormat API options */
-    options: PropTypes.object,
     /** @type {Object} theme - react-themeable */
     theme: PropTypes.object,
   };
 
   static defaultProps = {
-    number: 0,
     duration: 700,
     delay: 85,
-    locale: 'en-GB',
-    options: {
-      style: 'currency', currency: 'GBP', maximumFractionDigits: 0, minimumFractionDigits: 0,
-    },
     theme: defaultTheme,
   };
 
@@ -110,10 +105,8 @@ class Reels extends PureComponent {
    * @return {*}
    */
   static getDerivedStateFromProps(nextProps, prevState) {
-    const formatter = new Intl.NumberFormat(nextProps.locale, nextProps.options);
-
-    const strippedPrev = +Reels.stripNonNumbers(formatter.format(prevState.number));
-    const strippedNext = +Reels.stripNonNumbers(formatter.format(nextProps.number));
+    const strippedPrev = +Reels.stripNonNumbers(prevState.text);
+    const strippedNext = +Reels.stripNonNumbers(nextProps.text);
 
     if (strippedPrev === strippedNext) {
       return null;
@@ -130,7 +123,7 @@ class Reels extends PureComponent {
     }
 
     return {
-      number: nextProps.number,
+      text: nextProps.text,
       delayArray,
     };
   }
@@ -153,18 +146,19 @@ class Reels extends PureComponent {
   /**
    * This method handles the render cycle of each reel
    * @param parts
+   * @param theme
    * @return {*}
    */
-  renderReels = (parts) => {
+  renderReels = (parts, theme) => {
     let ind = 0;
-    const { duration, theme } = this.props;
+    const { duration } = this.props;
 
     const values = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
 
     return parts.map(({ type, value }, partIndex) => {
       switch (type) {
-        case 'integer':
-        case 'fraction':
+        case Reels.TYPE_INT:
+        case Reels.TYPE_FRACTION:
           // both integers and fractions contain numbers we want to spin
           return (
             <React.Fragment key={type + partIndex}>
@@ -192,16 +186,36 @@ class Reels extends PureComponent {
     });
   };
 
+  getParts = (text) => {
+    const parts = [];
+
+    let lastType = null;
+
+    for (let i = 0; i < text.length; i++) {
+      const isInt = !isNaN(parseInt(text[i], 10));
+      const type = isInt ? Reels.TYPE_INT : Reels.TYPE_STRING;
+      const isSame = lastType === Reels.TYPE_INT && isInt || lastType === Reels.TYPE_STRING && !isInt;
+
+      if (isSame) {
+        parts[parts.length - 1].value += text[i];
+      } else {
+        parts.push({type, value: text[i]});
+      }
+
+      lastType = type;
+    }
+
+    return parts;
+  };
+
   render() {
-    const { locale, options, number, theme } = this.props;
-    const formatter = new Intl.NumberFormat(locale, options);
-    const format = formatter.format(number); // pretty format for a11y
-    const parts = formatter.formatToParts(number);
+    const theme = themeable(this.props.theme);
+    const parts = this.getParts(this.props.text);
 
     return (
-      <div aria-label={format}>
-        <div role="presentation" className={theme.reel}>
-          {this.renderReels(parts)}
+      <div aria-label={this.props.text}>
+        <div role="presentation" {...theme(1, 'reel')}>
+          {this.renderReels(parts, theme)}
         </div>
       </div>
     );

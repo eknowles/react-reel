@@ -1,7 +1,7 @@
 {
   "name": "react-reel",
   "version": "1.0.0",
-  "description": "Animate numbers in any language or format, with Intl.NumberFormat",
+  "description": "Animate anything like a slot machine",
   "author": "Edward Knowles <mail@eknowles.com>",
   "license": "MIT",
   "repository": "eknowles/react-reel",

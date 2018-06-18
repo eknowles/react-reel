@@ -1,6 +1,6 @@
 # react-reel
 
-> Animate numbers in any language or format, with Intl.NumberFormat
+> Animate anything like a slot machine
 
 [![NPM](https://img.shields.io/npm/v/react-reel.svg)](https://www.npmjs.com/package/react-reel) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![GitHub stars](https://img.shields.io/github/stars/eknowles/react-reel.svg)](https://github.com/eknowles/react-reel/stargazers)
@@ -11,8 +11,8 @@
 ## Features
 
 - Fully themeable
-- 60fps
-- Animates percentages, decimals and currencies
+- Highly performant, runs at 60fps
+- Animates anything you want!
 
 ## Install
 
@@ -36,13 +36,7 @@ import Reel from 'react-reel'
 class Example extends Component {
   render () {
     return (
-      <Reel
-        locale="en-GB"
-        number={123456789}
-        options={
-          {style: 'decimal'}
-        }
-      />
+      <Reel text="$34.42" />
     )
   }
 }
@@ -52,41 +46,22 @@ class Example extends Component {
 
 ```javascript
   static propTypes = {
-    /** @type {Number} number - number to move to */
-    number: PropTypes.number,
+    /** @type {String} text - Text to display */
+    text: PropTypes.string.isRequired,
     /** @type {Number} [1000] duration - animation duration in milliseconds */
     duration: PropTypes.number,
     /** @type {number} DELAY - delay between each sibling animation */
     delay: PropTypes.number,
-    /** @type {String} [en-GB] locale - BCP 47 lang tag */
-    locale: PropTypes.string,
-    /** @type {String} options - NumberFormat API options */
-    options: PropTypes.object,
     /** @type {Object} theme - react-themeable */
     theme: PropTypes.object,
   };
 
   static defaultProps = {
-    number: 0,
     duration: 700,
     delay: 85,
-    locale: 'en-GB',
-    options: {
-      style: 'currency', currency: 'GBP', maximumFractionDigits: 0, minimumFractionDigits: 0,
-    },
     theme: defaultTheme,
   };
 ```
-
-
-| Prop | Types | Required/Default | Description |
-| --- | --- | --- |
-| number | number | ✓ | number to move to |
-| duration | number | `700` | animation duration in milliseconds |
-| delay | number | `85` | delay between each sibling animation |
-| locale | string | `en-gb` | BCP 47 lang tag |
-| options | object | `{style: 'currency', currency: 'GBP', maximumFractionDigits: 0, minimumFractionDigits: 0}` | NumberFormat API options |
-| theme | object | See below | react-themeable object |
 
 
 ## Theme

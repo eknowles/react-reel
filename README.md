@@ -78,7 +78,7 @@ class Example extends Component {
   };
 ```
 
-Prop | Types| Required/Default | Description
+Prop | Types | Required/Default | Description
 --- | --- | ---
 number | number | ✓ | number to move to
 duration | number | `700` | animation duration in milliseconds

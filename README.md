@@ -78,6 +78,7 @@ class Example extends Component {
   };
 ```
 
+
 | Prop | Types | Required/Default | Description |
 | --- | --- | --- |
 | number | number | ✓ | number to move to |
@@ -86,6 +87,7 @@ class Example extends Component {
 | locale | string | `en-gb` | BCP 47 lang tag |
 | options | object | `{style: 'currency', currency: 'GBP', maximumFractionDigits: 0, minimumFractionDigits: 0}` | NumberFormat API options |
 | theme | object | See below | react-themeable object |
+
 
 ## Theme
 

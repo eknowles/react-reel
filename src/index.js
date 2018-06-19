@@ -38,7 +38,11 @@ class Numbers extends PureComponent {
     this.hasLoaded = true;
     this.timeout = setTimeout(() => {
       this.forceUpdate();
-    }, this.props.delay);
+    }, 20);
+  }
+
+  componentDidUpdate() {
+    clearTimeout(this.timeout);
   }
 
   componentWillUnmount() {
@@ -134,6 +138,7 @@ class Reels extends PureComponent {
   delay(index) {
     const { delayArray } = this.state;
     const { delay } = this.props;
+    // return delay * index;
     if (!delayArray) {
       return 0;
     }
@@ -149,10 +154,10 @@ class Reels extends PureComponent {
    */
   renderReels = (parts, theme) => {
     let ind = 0;
+    let strInd = 0;
     const { duration } = this.props;
 
     const values = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
-
     return parts.map(({ type, value }, partIndex) => {
       switch (type) {
         case Reels.TYPE_INT:
@@ -166,7 +171,7 @@ class Reels extends PureComponent {
                     <Numbers
                       theme={theme}
                       duration={duration}
-                      key={type + partIndex + intIndex}
+                      key={type + ind}
                       delay={this.delay(ind)}
                       number={number}
                       values={values}
@@ -179,7 +184,10 @@ class Reels extends PureComponent {
             </React.Fragment>
           );
         // for any other segment we want a static reel with one value in it's array
-        default: return <Numbers theme={theme} duration={0} key={type + partIndex} values={[value]} />;
+        default:
+          const output = <Numbers theme={theme} key={type + strInd} values={[value]} />;
+          strInd++;
+          return output;
       }
     });
   };

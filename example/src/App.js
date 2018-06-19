@@ -39,16 +39,19 @@ export default class App extends Component {
       currency: { code: 'GBP', name: 'United Kingdom Pound' },
       pct: 0.5,
       currencyAmount: 1234,
+      customNumber: false,
+      myNumber: '2018-6-19'
     };
   }
 
   random = () => {
     this.setState({
-      currencyAmount: chance.natural({ min: 10000, max: 20000 }),
+      currencyAmount: chance.natural({ min: 0, max: 2000 }),
       pct: Math.random(),
-      // locale: randomElement(locales),
-      // currency: randomElement(currencies),
-    })
+      locale: randomElement(locales),
+      currency: randomElement(currencies),
+    });
+    this.setState({customNumber: !this.state.customNumber, myNumber: this.state.customNumber ? '19-6-2018' : '19.06.2018.'});
   };
 
   render() {
@@ -61,17 +64,15 @@ export default class App extends Component {
 
     return (
       <div className='example' onClick={this.random}>
-        <NumberCounter delay={85} theme={theme} text={demoCurrency} />
+        <NumberCounter theme={theme} text={demoCurrency} />
         <p>You are viewing <strong>{currencyAmount}</strong> <strong>{currency.name}</strong> displayed in <strong>{locale.name}</strong></p>
-
-        <NumberCounter delay={85} theme={theme} text={demoDecimal} />
+        <NumberCounter theme={theme} text={demoDecimal} />
         <p>Formatted as a decimal</p>
-
-        <NumberCounter delay={85} theme={theme} text={demoPercent} />
+        <NumberCounter theme={theme} text={demoPercent} />
         <p>A percentage should be a float less than or equal to 1 ({pct})</p>
-
-        <NumberCounter delay={85} theme={theme} text={demoDate} />
+        <NumberCounter theme={theme} text={demoDate} />
         <p>Today's date formatted in <strong>{locale.name}</strong></p>
+        <NumberCounter theme={theme} delay={100} duration={500} text={this.state.myNumber} />
       </div>
     );
   }

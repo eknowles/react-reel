@@ -72,7 +72,6 @@ export default class App extends Component {
         <p>A percentage should be a float less than or equal to 1 ({pct})</p>
         <NumberCounter theme={theme} text={demoDate} />
         <p>Today's date formatted in <strong>{locale.name}</strong></p>
-        <NumberCounter theme={theme} delay={100} duration={500} text={this.state.myNumber} />
       </div>
     );
   }

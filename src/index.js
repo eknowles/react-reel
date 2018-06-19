@@ -94,8 +94,7 @@ class Reels extends PureComponent {
 
   constructor(props) {
     super(props);
-    const { text } = this.props;
-    this.state = { text };
+    this.state = { text: '' };
   }
 
   /**
@@ -121,7 +120,6 @@ class Reels extends PureComponent {
         delayArray.push(i);
       }
     }
-
     return {
       text: nextProps.text,
       delayArray,
@@ -140,7 +138,7 @@ class Reels extends PureComponent {
       return 0;
     }
     const indexDelay = delayArray.indexOf(index);
-    return (indexDelay > -1 ? indexDelay : 0) * delay;
+    return (indexDelay > -1 ? (indexDelay + 1) : 0) * delay;
   }
 
   /**

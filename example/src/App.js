@@ -46,8 +46,8 @@ export default class App extends Component {
     this.setState({
       currencyAmount: chance.natural({ min: 10000, max: 20000 }),
       pct: Math.random(),
-      locale: randomElement(locales),
-      currency: randomElement(currencies),
+      // locale: randomElement(locales),
+      // currency: randomElement(currencies),
     })
   };
 
@@ -60,17 +60,17 @@ export default class App extends Component {
     const demoDate = new Intl.DateTimeFormat(locale.code).format(new Date());
 
     return (
-      <div className="example" onClick={this.random}>
-        <NumberCounter theme={theme} text={demoCurrency} />
+      <div className='example' onClick={this.random}>
+        <NumberCounter delay={85} theme={theme} text={demoCurrency} />
         <p>You are viewing <strong>{currencyAmount}</strong> <strong>{currency.name}</strong> displayed in <strong>{locale.name}</strong></p>
 
-        <NumberCounter theme={theme} text={demoDecimal} />
+        <NumberCounter delay={85} theme={theme} text={demoDecimal} />
         <p>Formatted as a decimal</p>
 
-        <NumberCounter theme={theme} text={demoPercent} />
+        <NumberCounter delay={85} theme={theme} text={demoPercent} />
         <p>A percentage should be a float less than or equal to 1 ({pct})</p>
 
-        <NumberCounter theme={theme} text={demoDate} />
+        <NumberCounter delay={85} theme={theme} text={demoDate} />
         <p>Today's date formatted in <strong>{locale.name}</strong></p>
       </div>
     );

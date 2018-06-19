@@ -10,22 +10,22 @@ import { defaultTheme } from './theme';
  */
 class Numbers extends PureComponent {
   static propTypes = {
-    /** @type {Number} [0] delay - animation delay */
+    /** @type {number} [0] delay - animation delay */
     delay: PropTypes.number,
     /** @type {Array} [9, 8, 7, 6, 5, 4, 3, 2, 1, 0] values */
     values: PropTypes.array,
-    /** @type {Number} [0] number - number to move to */
+    /** @type {number} [0] number - number to move to */
     number: PropTypes.number,
-    /** @type {Number} [1000] duration - animation duration in milliseconds */
+    /** @type {number} [1000] duration - animation duration in milliseconds */
     duration: PropTypes.number,
-    /** @type {Object} theme - react-themeable */
+    /** @type {object} theme - react-themeable */
     theme: PropTypes.func,
   };
 
   static defaultProps = {
     values: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
     number: 0,
-    delay: 85,
+    delay: 0,
     duration: 700,
   };
 
@@ -71,18 +71,18 @@ class Reels extends PureComponent {
   static TYPE_INT = 'integer';
   static TYPE_FRACTION = 'fraction';
   static getNumbers(number) {
-    return number.toString().split('').map((n) => parseInt(n, 10));
+    return number.toString().split('').map((n) => parseInt(n, 10))
   }
-  static stripNonNumbers = (str) => str && str.match(/\d/g).join('');
+  static stripNonNumbers = (str) => str && (str.match(/\d/g) || []).join('');
 
   static propTypes = {
-    /** @type {Number} text */
+    /** @type {string} text */
     text: PropTypes.string.isRequired,
-    /** @type {Number} [1000] duration - animation duration in milliseconds */
+    /** @type {number} [1000] duration - animation duration in milliseconds */
     duration: PropTypes.number,
     /** @type {number} DELAY - delay between each sibling animation */
     delay: PropTypes.number,
-    /** @type {Object} theme - react-themeable */
+    /** @type {{reel: string, group: string, number: string}} theme - react-themeable */
     theme: PropTypes.any,
   };
 
@@ -130,7 +130,7 @@ class Reels extends PureComponent {
 
   /**
    * This method returns the desired animation delay at the given integer index
-   * @param {Number} index - Int index of the formatted number, e.g. £111,211 number 2 would be index of 4
+   * @param {number} index - Int index of the formatted number, e.g. £111,211 number 2 would be index of 4
    * @return {number}
    */
   delay(index) {

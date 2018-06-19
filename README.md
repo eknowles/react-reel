@@ -46,13 +46,13 @@ class Example extends Component {
 
 ```javascript
   static propTypes = {
-    /** @type {String} text - Text to display */
+    /** @type {string} text */
     text: PropTypes.string.isRequired,
-    /** @type {Number} [1000] duration - animation duration in milliseconds */
+    /** @type {number} [1000] duration - animation duration in milliseconds */
     duration: PropTypes.number,
     /** @type {number} DELAY - delay between each sibling animation */
     delay: PropTypes.number,
-    /** @type {Object} theme - react-themeable */
+    /** @type {{reel: string, group: string, number: string}} theme - react-themeable */
     theme: PropTypes.any,
   };
 

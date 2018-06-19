@@ -24,6 +24,7 @@
     // allow imports mixed with non-import statements at top of file
     "import/first": 0,
 
-    "comma-dangle": [true]
+    "comma-dangle": 0,
+    "semi": 0
   }
 }

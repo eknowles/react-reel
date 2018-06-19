@@ -94,8 +94,8 @@ class Reels extends PureComponent {
 
   constructor(props) {
     super(props);
-    const { number } = this.props;
-    this.state = { number };
+    const { text } = this.props;
+    this.state = { text };
   }
 
   /**
@@ -168,7 +168,7 @@ class Reels extends PureComponent {
                     <Numbers
                       theme={theme}
                       duration={duration}
-                      key={type + partIndex + intIndex} // eslint-disable-line
+                      key={type + partIndex + intIndex}
                       delay={this.delay(ind)}
                       number={number}
                       values={values}
@@ -181,11 +181,16 @@ class Reels extends PureComponent {
             </React.Fragment>
           );
         // for any other segment we want a static reel with one value in it's array
-        default: return <Numbers theme={theme} duration={duration} key={type + partIndex} values={[value]} />; // eslint-disable-line
+        default: return <Numbers theme={theme} duration={0} key={type + partIndex} values={[value]} />;
       }
     });
   };
 
+  /**
+   * This method walks though the given string and returns an array of parts similar to formatToParts in Intl API
+   * @param text
+   * @return {Array<{type: string, value: string}>} Parts array
+   */
   getParts = (text) => {
     const parts = [];
 
@@ -194,7 +199,7 @@ class Reels extends PureComponent {
     for (let i = 0; i < text.length; i++) {
       const isInt = !isNaN(parseInt(text[i], 10));
       const type = isInt ? Reels.TYPE_INT : Reels.TYPE_STRING;
-      const isSame = lastType === Reels.TYPE_INT && isInt || lastType === Reels.TYPE_STRING && !isInt;
+      const isSame = (lastType === Reels.TYPE_INT && isInt) || (lastType === Reels.TYPE_STRING && !isInt);
 
       if (isSame) {
         parts[parts.length - 1].value += text[i];
@@ -214,7 +219,7 @@ class Reels extends PureComponent {
 
     return (
       <div aria-label={this.props.text}>
-        <div role="presentation" {...theme(1, 'reel')}>
+        <div role='presentation' {...theme(1, 'reel')}>
           {this.renderReels(parts, theme)}
         </div>
       </div>

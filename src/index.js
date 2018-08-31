@@ -59,6 +59,7 @@ class Numbers extends PureComponent {
       transitionDelay: `${delay}ms`,
       transform: `translate(0, ${display}em)`,
     };
+
     return (
       <div {...theme(2, 'group')} style={style}>
         {values.map((v) => <div key={v} {...theme(v, 'number')}>{v}</div>)}
@@ -124,6 +125,7 @@ class Reels extends PureComponent {
         delayArray.push(i);
       }
     }
+
     return {
       text: nextProps.text,
       delayArray,
@@ -138,11 +140,13 @@ class Reels extends PureComponent {
   delay(index) {
     const { delayArray } = this.state;
     const { delay } = this.props;
-    // return delay * index;
+
     if (!delayArray) {
       return 0;
     }
+
     const indexDelay = delayArray.indexOf(index);
+
     return (indexDelay > -1 ? (indexDelay + 1) : 0) * delay;
   }
 
@@ -166,7 +170,7 @@ class Reels extends PureComponent {
           return (
             <React.Fragment key={type + partIndex}>
               {
-                Reels.getNumbers(value).map((number, intIndex) => {
+                Reels.getNumbers(value).map((number) => {
                   const output = (
                     <Numbers
                       theme={theme}
@@ -177,7 +181,9 @@ class Reels extends PureComponent {
                       values={values}
                     />
                   );
+
                   ind++;
+
                   return output;
                 })
               }
@@ -186,14 +192,16 @@ class Reels extends PureComponent {
         // for any other segment we want a static reel with one value in it's array
         default:
           const output = <Numbers theme={theme} key={type + strInd} values={[value]} />;
+
           strInd++;
+
           return output;
       }
     });
   };
 
   /**
-   * This method walks though the given string and returns an array of parts similar to formatToParts in Intl API
+   * This method walks though the given string and returns an array of parts, similar to formatToParts in Intl API
    * @param text
    * @return {Array<{type: string, value: string}>} Parts array
    */
@@ -210,7 +218,7 @@ class Reels extends PureComponent {
       if (isSame) {
         parts[parts.length - 1].value += text[i];
       } else {
-        parts.push({type, value: text[i]});
+        parts.push({ type, value: text[i] });
       }
 
       lastType = type;
@@ -224,7 +232,7 @@ class Reels extends PureComponent {
     const parts = this.getParts(this.props.text);
 
     return (
-      <div aria-label={this.props.text}>
+      <div aria-label={this.props.text} {...theme(0, 'container')}>
         <div role='presentation' {...theme(1, 'reel')}>
           {this.renderReels(parts, theme)}
         </div>

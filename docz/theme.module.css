@@ -1,0 +1,27 @@
+.container {
+  display: inline-flex;
+}
+
+.group {
+  height: 1em;
+  transition-delay: 0ms;
+  transition-timing-function: ease-in-out;
+  transform: translate(0, 0);
+}
+
+.number {
+  height: 1em;
+}
+
+.reel {
+  height: 1em;
+  display: flex;
+  align-content: flex-end;
+  overflow-y: hidden;
+
+  font-size: 45px;
+  font-weight: 300;
+  color: #E2AB5B;
+  border-bottom: 1px solid #0492BD;
+  line-height: 0.95em;
+}

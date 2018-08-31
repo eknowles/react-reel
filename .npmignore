@@ -8,3 +8,8 @@ jest.config.js
 # configs
 .eslintrc
 .travis.yml
+
+# example/demos
+.docz
+example
+docz

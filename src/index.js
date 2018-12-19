@@ -87,7 +87,7 @@ class Reels extends PureComponent {
   static TYPE_INT = 'integer';
   static TYPE_FRACTION = 'fraction';
   static getNumbers(number) {
-    return number.toString().split('').map(n => parseInt(n, 10));
+    return number.toString().split('').map((n) => parseInt(n, 10))
   }
   static stripNonNumbers = (str) => str && (str.match(/\d/g) || []).join('');
 
@@ -99,7 +99,7 @@ class Reels extends PureComponent {
     /** @type {number} DELAY - delay between each sibling animation */
     delay: PropTypes.number,
     /** @type {{reel: string, group: string, number: string}} theme - react-themeable */
-    theme: PropTypes.any
+    theme: PropTypes.any,
   };
 
   static defaultProps = {
@@ -158,7 +158,7 @@ class Reels extends PureComponent {
 
     const indexDelay = delayArray.indexOf(index);
 
-    return (indexDelay > -1 ? indexDelay + 1 : 0) * delay;
+    return (indexDelay > -1 ? (indexDelay + 1) : 0) * delay;
   }
 
   /**
@@ -180,13 +180,24 @@ class Reels extends PureComponent {
           // both integers and fractions contain numbers we want to spin
           return (
             <React.Fragment key={type + partIndex}>
-              {Reels.getNumbers(value).map(number => {
-                const output = <Numbers theme={theme} duration={duration} key={type + ind} delay={this.delay(ind)} number={number} values={values} />;
+              {
+                Reels.getNumbers(value).map((number) => {
+                  const output = (
+                    <Numbers
+                      theme={theme}
+                      duration={duration}
+                      key={type + ind}
+                      delay={this.delay(ind)}
+                      number={number}
+                      values={values}
+                    />
+                  );
 
-                ind++;
+                  ind++;
 
-                return output;
-              })}
+                  return output;
+                })
+              }
             </React.Fragment>
           );
         // for any other segment we want a static reel with one value in it's array
@@ -205,7 +216,7 @@ class Reels extends PureComponent {
    * @param text
    * @return {Array<{type: string, value: string}>} Parts array
    */
-  getParts = text => {
+  getParts = (text) => {
     const parts = [];
 
     let lastType = null;

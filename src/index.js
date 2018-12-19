@@ -19,7 +19,7 @@ class Numbers extends PureComponent {
     /** @type {number} [1000] duration - animation duration in milliseconds */
     duration: PropTypes.number,
     /** @type {object} theme - react-themeable */
-    theme: PropTypes.func
+    theme: PropTypes.func,
   };
 
   static defaultProps = {
@@ -55,7 +55,7 @@ class Numbers extends PureComponent {
     const style = {
       transitionDuration: `${duration}ms`,
       transitionDelay: `${delay}ms`,
-      transform: `translate(0, ${display}em)`
+      transform: `translate(0, ${display}em)`,
     };
 
     const t =
@@ -87,12 +87,9 @@ class Reels extends PureComponent {
   static TYPE_INT = 'integer';
   static TYPE_FRACTION = 'fraction';
   static getNumbers(number) {
-    return number
-      .toString()
-      .split('')
-      .map(n => parseInt(n, 10));
+    return number.toString().split('').map(n => parseInt(n, 10));
   }
-  static stripNonNumbers = str => str && (str.match(/\d/g) || []).join('');
+  static stripNonNumbers = (str) => str && (str.match(/\d/g) || []).join('');
 
   static propTypes = {
     /** @type {string} text */

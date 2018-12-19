@@ -18,7 +18,8 @@
     "deploy": "gh-pages -d example/build",
     "docs:dev": "docz dev",
     "docs:build": "docz build",
-    "example": "cd example/build"
+    "example": "cd example/build",
+    "lint": "eslint -c .eslintrc src/index.js src/theme.js --fix"
   },
   "dependencies": {
     "react-themeable": "^1.1.0"

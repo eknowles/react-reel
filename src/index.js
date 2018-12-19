@@ -26,7 +26,7 @@ class Numbers extends PureComponent {
     values: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
     number: 0,
     delay: 0,
-    duration: 700
+    duration: 700,
   };
 
   constructor(props) {
@@ -108,7 +108,7 @@ class Reels extends PureComponent {
   static defaultProps = {
     duration: 700,
     delay: 85,
-    theme: defaultTheme
+    theme: defaultTheme,
   };
 
   constructor(props) {
@@ -142,7 +142,7 @@ class Reels extends PureComponent {
 
     return {
       text: nextProps.text,
-      delayArray
+      delayArray,
     };
   }
 
@@ -184,16 +184,7 @@ class Reels extends PureComponent {
           return (
             <React.Fragment key={type + partIndex}>
               {Reels.getNumbers(value).map(number => {
-                const output = (
-                  <Numbers
-                    theme={theme}
-                    duration={duration}
-                    key={type + ind}
-                    delay={this.delay(ind)}
-                    number={number}
-                    values={values}
-                  />
-                );
+                const output = <Numbers theme={theme} duration={duration} key={type + ind} delay={this.delay(ind)} number={number} values={values} />;
 
                 ind++;
 
@@ -203,9 +194,7 @@ class Reels extends PureComponent {
           );
         // for any other segment we want a static reel with one value in it's array
         default:
-          const output = (
-            <Numbers theme={theme} key={type + strInd} values={[value]} />
-          );
+          const output = <Numbers theme={theme} key={type + strInd} values={[value]} />;
 
           strInd++;
 
@@ -227,9 +216,7 @@ class Reels extends PureComponent {
     for (let i = 0; i < text.length; i++) {
       const isInt = !isNaN(parseInt(text[i], 10));
       const type = isInt ? Reels.TYPE_INT : Reels.TYPE_STRING;
-      const isSame =
-        (lastType === Reels.TYPE_INT && isInt) ||
-        (lastType === Reels.TYPE_STRING && !isInt);
+      const isSame = (lastType === Reels.TYPE_INT && isInt) || (lastType === Reels.TYPE_STRING && !isInt);
 
       if (isSame) {
         parts[parts.length - 1].value += text[i];

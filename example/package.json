@@ -8,7 +8,7 @@
     "chance": "^1.0.16",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.4.2",
     "react-reel": "link:..",
     "react-scripts": "^1.1.1"
   },

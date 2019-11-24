@@ -33,13 +33,7 @@ import React, { Component } from 'react'
 
 import Reel from 'react-reel'
 
-class Example extends Component {
-  render () {
-    return (
-      <Reel text="$34.42" />
-    )
-  }
-}
+const Example = () => <Reel text="$34.42" />;
 ```
 
 ## Props
